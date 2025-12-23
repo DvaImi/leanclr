@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>leanclr wasm loader</title>
+  <style>
+    body { font-family: "Segoe UI", system-ui, -apple-system, sans-serif; margin: 24px; background: #0b1021; color: #e7ecf2; }
+    h1 { font-size: 20px; margin-bottom: 8px; }
+    button { background: #2c9cf0; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; cursor: pointer; font-size: 14px; }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    pre { background: #11172b; padding: 12px; border-radius: 8px; overflow: auto; max-height: 50vh; }
+  </style>
+</head>
+<body>
+  <h1>Load leanclr.wasm</h1>
+  <p>Served from the same directory as this page. Click the button to instantiate with console_log bound to browser console.</p>
+  <button id="load-btn">Load wasm</button>
+  <button id="run-test-btn" disabled>Run CoreTests::test.App::Main</button>
+  <pre id="log"></pre>
+
+  <script type="module">
+    const logView = document.querySelector('#log');
+    const btn = document.querySelector('#load-btn');
+    const runTestBtn = document.querySelector('#run-test-btn');
+    let wasmInstance;
+    let memoryRef;
+
+    const log = (msg) => {
+      console.log(msg);
+      logView.textContent += msg + "\n";
+    };
+
+    const imports = {
+      env: {
+        console_log: (ptr, len) => {
+          const mem = memoryRef;
+          if (!mem) {
+            log(`console_log called before memory set ptr=${ptr} len=${len}`);
+            return;
+          }
+          const view = new Uint16Array(mem.buffer, ptr, len);
+          let out = "";
+          for (let i = 0; i < view.length; i++) out += String.fromCharCode(view[i]);
+          log(out);
+        },
+        panic: (ptr, len) => {
+          const mem = memoryRef;
+          const view = new Uint8Array(mem.buffer, ptr, len);
+          const msg = new TextDecoder().decode(view);
+          const errMsg = `[PANIC] ${msg}`;
+          log(errMsg);
+          throw new Error(errMsg);
+        },
+        load_assembly_file: (namePtr, nameLen, outPtrPtr, outLenPtr) => {
+          const mem = memoryRef;
+          if (!mem) {
+            log(`load_assembly_file called before memory set`);
+            return -1;
+          }
+          const nameView = new Uint8Array(mem.buffer, namePtr, nameLen);
+          const dllName = new TextDecoder().decode(nameView);
+          
+          if (!window.dllData || !window.dllData[dllName]) {
+            log(`[ERROR] dll not found: ${dllName}`);
+            return -1;
+          }
+          
+          const dllBytes = window.dllData[dllName];
+          log(`[INFO] loading assembly: ${dllName} (${dllBytes.length} bytes)`);
+          
+          // 尝试在 wasm 中分配内存
+          let dataPtr = wasmInstance.exports.alloc(dllBytes.length);
+            if (dataPtr === 0) {
+                log(`[ERROR] failed to allocate memory for ${dllName}`);
+                return -1;
+            }
+          
+          // 将 dll 数据写入分配的内存
+          const dllMem = new Uint8Array(mem.buffer, dataPtr, dllBytes.length);
+          dllMem.set(dllBytes);
+          
+          // 写入输出参数：指针和长度
+          const outPtrView = new Uint32Array(mem.buffer, outPtrPtr, 1);
+          const outLenView = new Uint32Array(mem.buffer, outLenPtr, 1);
+          outPtrView[0] = dataPtr;
+          outLenView[0] = dllBytes.length;
+          
+          log(`[INFO] assembly ${dllName} loaded at 0x${dataPtr.toString(16)}, size: ${dllBytes.length}`);
+          return 0;
+        }
+      }
+    };
+
+    let dllLoaded = false;
+
+    async function preloadDlls() {
+      const dlls = ['mscorlib', "System", "System.Core", "CoreTests"];
+      window.dllData = {};
+      
+      for (const dllName of dlls) {
+        const fileName = dllName + '.dll.bytes';
+        try {
+          log(`Preloading ${fileName}...`);
+          const resp = await fetch(`./${fileName}`);
+          if (!resp.ok) {
+            log(`[WARN] failed to fetch ${fileName}: ${resp.statusText}`);
+            continue;
+          }
+          const buffer = await resp.arrayBuffer();
+          window.dllData[dllName] = new Uint8Array(buffer);
+          log(`Loaded ${dllName}: ${buffer.byteLength} bytes`);
+        } catch (err) {
+          log(`[WARN] failed to preload ${fileName}: ${err}`);
+        }
+      }
+      
+      dllLoaded = true;
+      return Object.keys(window.dllData).length > 0;
+    }
+
+    async function load() {
+      btn.disabled = true;
+      log('preloading dlls...');
+      const dllsReady = await preloadDlls();
+      if (!dllsReady) {
+        log('[WARN] no dlls were preloaded, continuing anyway...');
+      }
+      
+      log('fetching leanclr.wasm...');
+      const resp = await fetch('./leanclr.wasm');
+      const bytes = await resp.arrayBuffer();
+      log('instantiating wasm...');
+      const { instance } = await WebAssembly.instantiate(bytes, imports);
+      log('wasm instantiated, setting up...');
+      wasmInstance = instance;
+      memoryRef = instance.exports.memory;
+      log('wasm instantiated');
+      // invoke exported main if needed
+      if (instance.exports.main) {
+        log('calling wasm main');
+        instance.exports.main();
+      }
+      // Enable the test button after wasm is loaded
+      runTestBtn.disabled = false;
+    }
+
+    btn.addEventListener('click', () => {
+      load().catch(err => {
+        console.error(err);
+        log(`error: ${err}`);
+        btn.disabled = false;
+      });
+    });
+
+    runTestBtn.addEventListener('click', () => {
+      try {
+        log('Loading CoreTests assembly...');
+        // Allocate memory for the assembly name "CoreTests"
+        const assemblyName = 'CoreTests';
+        const nameBytes = new TextEncoder().encode(assemblyName);
+        const namePtr = wasmInstance.exports.alloc(nameBytes.length + 1);
+        const nameMem = new Uint8Array(memoryRef.buffer, namePtr, nameBytes.length + 1);
+        nameMem.set(nameBytes);
+        nameMem[nameBytes.length] = 0; // null terminate
+        
+        // Call load_assembly
+        const assemblyPtr = wasmInstance.exports.load_assembly(namePtr);
+        if (assemblyPtr === 0) {
+          log('[ERROR] Failed to load CoreTests assembly');
+          return;
+        }
+        log(`[INFO] CoreTests assembly loaded at 0x${assemblyPtr.toString(16)}`);
+        
+        // Prepare class name "test.App"
+        const className = 'test.App';
+        const classBytes = new TextEncoder().encode(className);
+        const classPtr = wasmInstance.exports.alloc(classBytes.length + 1);
+        const classMem = new Uint8Array(memoryRef.buffer, classPtr, classBytes.length + 1);
+        classMem.set(classBytes);
+        classMem[classBytes.length] = 0; // null terminate
+        
+        // Prepare method name "Main"
+        const methodName = 'Main';
+        const methodBytes = new TextEncoder().encode(methodName);
+        const methodPtr = wasmInstance.exports.alloc(methodBytes.length + 1);
+        const methodMem = new Uint8Array(memoryRef.buffer, methodPtr, methodBytes.length + 1);
+        methodMem.set(methodBytes);
+        methodMem[methodBytes.length] = 0; // null terminate
+        
+        log('Invoking test.App::Main...');
+        // Call invoke_method
+        wasmInstance.exports.invoke_method(assemblyPtr, classPtr, methodPtr);
+        log('[INFO] test.App::Main invoked successfully');
+      } catch (err) {
+        console.error(err);
+        log(`[ERROR] ${err}`);
+      }
+    });
+  </script>
+</body>
+</html>
