@@ -2,6 +2,8 @@
 
 Language: [中文](./README.md) | [English](./README_EN.md)
 
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/focus-creative-games/leanclr/blob/main/LICENSE) [![DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/focus-creative-games/leanclr)
+
 LeanCLR is a lean, cross-platform implementation of the Common Language Runtime (CLR). Its goal is to closely adhere to the ECMA-335 standard while providing a compact, embeddable, and memory-efficient runtime tailored for resource-constrained environments such as mobile, HTML5, and mini-game platforms.
 
 ## Why LeanCLR

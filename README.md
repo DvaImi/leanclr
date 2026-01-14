@@ -2,6 +2,8 @@
 
 语言: [中文](./README.md) | [English](./README_EN.md)
 
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/focus-creative-games/leanclr/blob/main/LICENSE) [![DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/focus-creative-games/leanclr)
+
 LeanCLR 是一个面向全平台的精益 CLR（Common Language Runtime）实现。LeanCLR 的设计目标是在高度符合 ECMA-335 规范的前提下，提供更紧凑、易嵌入、低内存占用的运行时，实现对移动端、H5 与小游戏等资源受限平台的友好支持。
 
 ## 为什么是 LeanCLR
