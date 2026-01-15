@@ -185,8 +185,6 @@ class StringBuilder
         return _buf + _length;
     }
 
-    
-
     // Get current buffer as const pointer
     const char* as_cstr() const
     {

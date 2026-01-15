@@ -34,7 +34,7 @@ static void default_debugger_log_function(int32_t level, const uint16_t* categor
     {
         g_debugger_log_buffer.append_utf16_str(message, message_len);
     }
-    //g_debugger_log_buffer.sure_null_terminator_but_not_append();
+    // g_debugger_log_buffer.sure_null_terminator_but_not_append();
 
     // Output to standard output (could be replaced with other logging mechanisms)
     printf("%s\n", g_debugger_log_buffer.as_cstr());
