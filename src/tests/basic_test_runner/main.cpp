@@ -308,9 +308,9 @@ int main()
         return -1;
     }
 
-    bool is_run_all = true;
+    bool is_run_all = false;
     bool is_run_bootstrap_tests = is_run_all || false;
-    bool is_run_core_tests = is_run_all || false;
+    bool is_run_core_tests = is_run_all || true;
     bool is_load_corlib_customattributes = is_run_all || false;
     bool is_run_corlib_tests = is_run_all || true;
 

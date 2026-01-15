@@ -22,7 +22,7 @@ cmake -S "%SCRIPT_DIR%." -B "%BUILD_DIR%" -G "Visual Studio 17 2022" -A %ARCH%
 if errorlevel 1 goto :error
 
 echo [2/2] Build target 'lean'...
-cmake --build "%BUILD_DIR%" --config %CONFIG% --target lean
+cmake --build "%BUILD_DIR%" --config %CONFIG% --target lean --parallel
 if errorlevel 1 goto :error
 
 set "EXE=%BUILD_DIR%\bin\%CONFIG%\lean.exe"

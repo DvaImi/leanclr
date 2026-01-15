@@ -38,7 +38,7 @@ set_target_properties(leanclr PROPERTIES
 
 if(MSVC)
     string(REGEX REPLACE "/EHsc" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-    target_compile_options(leanclr PRIVATE /EHs-c-)
+    target_compile_options(leanclr PRIVATE /EHs-c- /MP)
 elseif(EMSCRIPTEN)
     # WebAssembly (Emscripten) 配置
     target_compile_options(leanclr PRIVATE

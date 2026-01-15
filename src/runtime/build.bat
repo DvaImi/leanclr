@@ -57,7 +57,7 @@ if errorlevel 1 (
 :: Build the project
 echo.
 echo [2/2] Building project...
-cmake --build . --config %BUILD_TYPE%
+cmake --build . --config %BUILD_TYPE% --parallel
 if errorlevel 1 (
     echo ERROR: Build failed.
     popd
