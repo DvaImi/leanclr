@@ -72,10 +72,10 @@ static void setup_default_lib_dirs()
         std::string library_dir = cur_dir.substr(0, pos) + "src/libraries";
         g_lib_dirs.push_back(library_dir + "/dotnetframework4.x"); // Example additional directory
         std::string test_dir = cur_dir.substr(0, pos) + "/src/tests/managed";
-        g_lib_dirs.push_back(test_dir + "/ILTests/bin/Debug");
+        // g_lib_dirs.push_back(test_dir + "/ILTests/bin/Debug");
         g_lib_dirs.push_back(test_dir + "/CoreTests/bin/Debug");
         g_lib_dirs.push_back(test_dir + "/CorlibTests/bin/Debug");
-        g_lib_dirs.push_back(test_dir + "/RefNestandard");
+        g_lib_dirs.push_back(test_dir + "/MiscDlls");
     }
     for (const auto& dir : g_lib_dirs)
     {
