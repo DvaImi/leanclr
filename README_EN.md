@@ -164,7 +164,8 @@ leanclr/
 │   ├── runtime/      # LeanCLR runtime core
 │   ├── libraries/    # Base class libraries
 │   ├── tools/        # Command-line tools
-│   └── samples/      # Sample projects
+│   ├── samples/      # Sample projects
+│   └── tests/        # Unit tests
 ├── demo/             # Demo examples
 └── tools/            # Build utilities
 ```
@@ -209,6 +210,7 @@ Detailed documentation is available in the [docs](./docs) directory:
 - [Build Documentation](./docs/build/README.md) - Build-related documentation overview
 - [Building the Runtime](./docs/build/build_runtime.md) - How to build the LeanCLR runtime
 - [Embedding LeanCLR](./docs/build/embed_leanclr.md) - How to integrate LeanCLR into your project
+- [Test Framework](./src/tests/README.md) - Unit test framework and how to write test cases
 
 ## Quick Build
 

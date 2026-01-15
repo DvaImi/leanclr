@@ -164,7 +164,8 @@ leanclr/
 │   ├── runtime/      # LeanCLR 运行时核心
 │   ├── libraries/    # 基础类库
 │   ├── tools/        # 命令行工具
-│   └── samples/      # 示例项目
+│   ├── samples/      # 示例项目
+│   └── tests/        # 单元测试
 ├── demo/             # 演示示例
 └── tools/            # 构建辅助工具
 ```
@@ -209,6 +210,7 @@ LeanCLR 运行时的核心实现，包含：
 - [构建文档](./docs/build/README.md) - 构建相关文档概述
 - [构建运行时](./docs/build/build_runtime.md) - 如何构建 LeanCLR 运行时
 - [嵌入 LeanCLR](./docs/build/embed_leanclr.md) - 如何将 LeanCLR 集成到您的项目
+- [测试框架](./src/tests/README.md) - 单元测试框架和测试用例编写指南
 
 ## 快速构建
 

@@ -21,6 +21,10 @@ docs/
 - [Building the Runtime](./build/build_runtime.md) - Step-by-step guide to build the runtime
 - [Embedding LeanCLR](./build/embed_leanclr.md) - How to integrate LeanCLR into your project
 
+### Testing
+
+- [Test Framework](../src/tests/README.md) - Unit test framework and how to add test cases
+
 ### Project Resources
 
 - [Main README](../README.md) - Project overview and features
