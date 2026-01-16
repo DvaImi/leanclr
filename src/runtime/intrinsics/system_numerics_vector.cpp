@@ -1,6 +1,6 @@
 #include "system_numerics_vector.h"
 #include "../interp/interp_defs.h"
-#include "../pal/hardware.h"
+#include "../platform/hardware.h"
 
 namespace leanclr::intrinsics
 {

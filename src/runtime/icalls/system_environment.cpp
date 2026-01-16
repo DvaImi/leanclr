@@ -7,7 +7,7 @@
 #include "../vm/class.h"
 #include "../vm/environment.h"
 
-#include "../os/rt_time.h"
+#include "../platform/rt_time.h"
 
 namespace leanclr::icalls
 {

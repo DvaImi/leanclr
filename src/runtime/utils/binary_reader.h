@@ -47,24 +47,28 @@ class BinaryReader
 
     bool try_advance(size_t offset)
     {
-        size_t new_index = _index + offset;
-        if (new_index <= _length)
+        if (offset > _length - _index)
         {
-            _index = new_index;
-            return true;
+            return false;
         }
-        return false;
+
+        _index = _index + offset;
+        return true;
     }
 
     bool try_offset(ptrdiff_t offset)
     {
-        size_t new_index = static_cast<size_t>(static_cast<ptrdiff_t>(_index) + offset);
-        if (new_index <= _length)
+        if (offset < 0 && static_cast<size_t>(-offset) > _index)
         {
-            _index = new_index;
-            return true;
+            return false;
         }
-        return false;
+        if (offset > 0 && static_cast<size_t>(offset) > _length - _index)
+        {
+            return false;
+        }
+
+        _index = static_cast<size_t>(static_cast<ptrdiff_t>(_index) + offset);
+        return true;
     }
 
     bool try_align_up_position(size_t alignment)

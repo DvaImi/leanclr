@@ -218,18 +218,6 @@ class Vector
         return data_[index];
     }
 
-    T& at(size_t index)
-    {
-        assert(index < size_ && "Vector index out of range");
-        return data_[index];
-    }
-
-    const T& at(size_t index) const
-    {
-        assert(index < size_ && "Vector index out of range");
-        return data_[index];
-    }
-
     T& front()
     {
         return data_[0];

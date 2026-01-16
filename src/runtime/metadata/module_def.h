@@ -16,8 +16,8 @@ namespace leanclr::metadata
 
 struct ClassLayoutData
 {
-    const uint16_t packing;
-    const uint32_t size;
+    uint16_t packing;
+    uint32_t size;
 
     ClassLayoutData(uint16_t p, uint32_t s) : packing(p), size(s)
     {
