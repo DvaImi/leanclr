@@ -13,11 +13,10 @@ typedef int8_t sbyte;
 #define LEANCLR_ARCH_64BIT 1
 #endif
 
-#if defined(__GNUC__) || defined(__clang__)
-// #define LEANCLR_USE_COMPUTED_GOTO_DISPATCHER 1
+#if (defined(__GNUC__) || defined(__clang__)) && !defined(__EMSCRIPTEN__)
 #define LEANCLR_USE_COMPUTED_GOTO_DISPATCHER 1
 #else
-#define LEANCLR_USE_COMPUTED_GOTO_DISPATCHER 1
+#define LEANCLR_USE_COMPUTED_GOTO_DISPATCHER 0
 #endif
 
 #if !NDEBUG
