@@ -47,6 +47,10 @@ static HandleInfo* alloc_handle()
 // Free a handle implementation
 static void free_handle_impl(HandleInfo* handle)
 {
+    if (handle == nullptr)
+    {
+        return;
+    }
     assert(handle->obj != nullptr);
     // Reset handle and add to freed list
     handle->obj = nullptr;
