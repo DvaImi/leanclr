@@ -40,13 +40,13 @@ if(MSVC)
     string(REGEX REPLACE "/EHsc" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     target_compile_options(leanclr PRIVATE /EHs-c- /MP)
 elseif(EMSCRIPTEN)
-    # WebAssembly (Emscripten) 配置
+
     target_compile_options(leanclr PRIVATE
         -fno-exceptions
         -fno-rtti
         -O2
     )
-    # 链接器选项必须在 target_link_options 中，不能在 COMPILE_FLAGS
+
     target_link_options(leanclr PRIVATE
         "SHELL: -s WASM=1"
         "SHELL: -s ALLOW_MEMORY_GROWTH=1"
@@ -55,4 +55,20 @@ elseif(EMSCRIPTEN)
 
 else()
     target_compile_options(leanclr PRIVATE -fno-exceptions)
+endif()
+
+if(WIN32)
+    target_compile_definitions(leanclr PUBLIC LEANCLR_PLATFORM_WIN)
+elseif(APPLE)
+    if(IOS)
+        target_compile_definitions(leanclr PUBLIC LEANCLR_PLATFORM_IOS)
+    else()
+        target_compile_definitions(leanclr PUBLIC LEANCLR_PLATFORM_MAC)
+    endif()
+elseif(ANDROID)
+    target_compile_definitions(leanclr PUBLIC LEANCLR_PLATFORM_ANDROID)
+elseif(EMSCRIPTEN)
+    target_compile_definitions(leanclr PUBLIC LEANCLR_PLATFORM_WASM)
+elseif(UNIX)
+    target_compile_definitions(leanclr PUBLIC LEANCLR_PLATFORM_LINUX)
 endif()
