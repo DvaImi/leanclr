@@ -43,7 +43,7 @@ RtResultVoid StackTrace::setup_trace_ips(RtException* ex)
     }
     metadata::RtClass* cls_stackframe = Class::get_corlib_types().cls_stackframe;
     DECLARING_AND_UNWRAP_OR_RET_ERR_ON_FAIL(RtArray*, trace_ips, Array::new_array_from_ele_klass(cls_stackframe, static_cast<int32_t>(trace_frames.size())));
-    for (size_t i = 0; i < trace_frames.size(); ++i)
+    for (size_t i = 0, frame_count = trace_frames.size(); i < frame_count; ++i)
     {
         DECLARING_AND_UNWRAP_OR_RET_ERR_ON_FAIL(RtObject*, stackframe_obj, Object::new_object(cls_stackframe));
         RtStackFrame* stackframe = static_cast<RtStackFrame*>(stackframe_obj);
@@ -51,7 +51,7 @@ RtResultVoid StackTrace::setup_trace_ips(RtException* ex)
         const interp::InterpFrame* frame = trace_frames[i];
         UNWRAP_OR_RET_ERR_ON_FAIL(stackframe->method, Reflection::get_method_reflection_object(frame->method, frame->method->parent));
         stackframe->method_index = Method::get_method_index_in_class(frame->method);
-        Array::set_array_data_at<RtObject*>(trace_ips, i, stackframe_obj);
+        Array::set_array_data_at<RtObject*>(trace_ips, frame_count - 1 - i, stackframe_obj);
     }
     ex->trace_ips = trace_ips;
 
