@@ -16,7 +16,7 @@
 namespace leanclr::interp
 {
 
-static RtResult<const RtInterpMethodInfo*> transfrom(const metadata::RtMethodInfo* method)
+static RtResult<const RtInterpMethodInfo*> transform(const metadata::RtMethodInfo* method)
 {
     metadata::RtClass* klass = method->parent;
     metadata::RtModuleDef* mod = !vm::Class::is_array_or_szarray(klass) ? klass->image : klass->parent->image;
@@ -43,7 +43,7 @@ RtResult<const RtInterpMethodInfo*> Interpreter::init_interpreter_method(const m
 {
     assert(!method->interp_data);
     RET_ERR_ON_FAIL(vm::Class::initialize_all(method->parent));
-    DECLARING_AND_UNWRAP_OR_RET_ERR_ON_FAIL(const RtInterpMethodInfo*, interp_method, transfrom(method));
+    DECLARING_AND_UNWRAP_OR_RET_ERR_ON_FAIL(const RtInterpMethodInfo*, interp_method, transform(method));
     const_cast<metadata::RtMethodInfo*>(method)->interp_data = interp_method;
     RET_OK(interp_method);
 }
@@ -287,12 +287,16 @@ inline bool check_mul_overflow_i32(int32_t a, int32_t b, int32_t* result)
 {
     if (b != 0 && (a > INT32_MAX / b || a < INT32_MIN / b))
         return true;
+    if (a == INT32_MIN && b == -1) // Special case: overflow
+        return true;
     *result = a * b;
     return false;
 }
 inline bool check_mul_overflow_i64(int64_t a, int64_t b, int64_t* result)
 {
     if (b != 0 && (a > INT64_MAX / b || a < INT64_MIN / b))
+        return true;
+    if (a == INT64_MIN && b == -1) // Special case: overflow
         return true;
     *result = a * b;
     return false;
