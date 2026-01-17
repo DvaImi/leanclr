@@ -421,3 +421,5 @@ FodyWeavers.xsd
 /**/build-*/
 /**/CMakeFiles/
 ___*
+/src/samples/lean-wasm/h5/lean.js
+/src/samples/lean-wasm/h5/lean.wasm

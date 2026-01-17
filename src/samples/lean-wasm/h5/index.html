@@ -488,7 +488,7 @@
                             const data = assemblyCache[assemblyName];
                             try {
                                 // 在 WASM 内存中分配空间（使用 runtime allocate，内部调用 _malloc）
-                                const ptr = Module.allocate(data);
+                                const ptr = Module._malloc(data.length);
 
                                 // 将数据写入 WASM 内存（allocate 已写入，但为安全起见再 set 一次覆盖）
                                 Module.HEAPU8.set(data, ptr);

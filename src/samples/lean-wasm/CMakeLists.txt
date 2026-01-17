@@ -23,16 +23,20 @@ set_target_properties(lean PROPERTIES
 if(EMSCRIPTEN)
     # Set output as .js + .wasm (no HTML wrapper)
     set_target_properties(lean PROPERTIES SUFFIX ".js")
-
-    target_link_options(lean PRIVATE
+    set(LEAN_WASM_COMMON_LINK_OPTIONS
         "SHELL:-s WASM=1"
         "SHELL:-s ALLOW_MEMORY_GROWTH=1"
-        "SHELL:-s EXPORTED_FUNCTIONS=['_load_assemby','_invoke_method','_initialize_runtime']"
-        # Export runtime helpers needed by JS bridge. Do not include raw wasm exports (e.g. _malloc) here.
-        "SHELL:-s EXPORTED_RUNTIME_METHODS=['ccall','cwrap','getValue','setValue','allocate','intArrayFromString','HEAPU8']"
+        "SHELL:-s EXPORTED_FUNCTIONS=['_load_assemby','_invoke_method','_initialize_runtime','_allocate_bytes','_malloc','_free']"
+        "SHELL:-s EXPORTED_RUNTIME_METHODS=['ccall','cwrap','getValue','setValue','intArrayFromString','HEAPU8','allocate']"
         "SHELL:-s MODULARIZE=1"
         "SHELL:-s EXPORT_NAME='createStartupModule'"
         "SHELL:-s ENVIRONMENT=web,worker"
-        -O2
     )
+
+    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+        message(STATUS "Emscripten Debug build: enabling debug symbols and source map.")
+        target_link_options(lean PRIVATE ${LEAN_WASM_COMMON_LINK_OPTIONS} -gsource-map)
+    else()
+        target_link_options(lean PRIVATE ${LEAN_WASM_COMMON_LINK_OPTIONS} -O2)
+    endif()
 endif()
