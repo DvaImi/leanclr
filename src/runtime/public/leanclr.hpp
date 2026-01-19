@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "rt_base.h"
 #include "vm/rt_managed_types.h"
 #include "vm/pinvoke.h"
@@ -88,14 +90,51 @@ class RuntimeApi
     static void register_newobj_internal_call_func(const char* name, vm::InternalCallInvoker invoker);
     static void register_intrinsic_func(const char* name, vm::IntrinsicFunction func, vm::IntrinsicInvoker invoker);
     static void register_newobj_intrinsic_func(const char* name, vm::IntrinsicInvoker invoker);
+
+    static RtErr initialize_runtime();
+    static void shutdown_runtime();
+
+    static RtResultVoid get_assemblies(utils::Vector<metadata::RtAssembly*>& out_assemblies);
+    static RtResult<metadata::RtAssembly*> get_assembly(const char* assembly_name);
+    static RtResult<metadata::RtAssembly*> load_assembly(const char* assembly_name);
+    static metadata::RtModuleDef* get_assembly_by_module(metadata::RtAssembly* ass);
+    static metadata::RtAssembly* get_module_by_assembly(metadata::RtModuleDef* mod);
+    static bool is_corlib(metadata::RtModuleDef* mod);
+    static const char* get_module_name_noext(metadata::RtModuleDef* mod);
+
+    static RtResultVoid get_classes(metadata::RtModuleDef* mod, bool export_only, utils::Vector<metadata::RtClass*>& classes);
+    static RtResult<metadata::RtClass*> get_class_by_name(metadata::RtModuleDef* ass, const char* full_name, bool ignore_case);
+
+    static metadata::RtModuleDef* get_class_module(metadata::RtClass* klass);
+    static const char* get_class_namespace(metadata::RtClass* klass);
+    static const char* get_class_name(metadata::RtClass* klass);
+    static const metadata::RtTypeSig* get_class_byval_typesig(metadata::RtClass* klass);
+    static const metadata::RtTypeSig* get_class_byref_typesig(metadata::RtClass* klass);
+    static metadata::RtClass* get_class_parent(metadata::RtClass* klass);
+    static RtResultVoid get_class_interfaces(metadata::RtClass* klass, const metadata::RtClass**& interfaces, size_t& count);
+    
+    static metadata::RtClass* get_class_enclosing_class(metadata::RtClass* klass);
+    static RtResultVoid get_class_nested_classes(metadata::RtClass* klass, const metadata::RtClass**& nested_classes, size_t& count);
+
+    static RtResultVoid get_class_methods(metadata::RtClass* klass, const metadata::RtMethodInfo**& methods, size_t& count);
+    static RtResult<const metadata::RtMethodInfo*> get_class_method_by_name(metadata::RtClass* klass, const char* method_name);
+
+    static RtResultVoid get_class_field(metadata::RtClass* klass, const metadata::RtFieldInfo*& fields, size_t& count);
+    static RtResult<const metadata::RtFieldInfo*> get_class_field_by_name(metadata::RtClass* klass, const char* field_name);
+
+    static RtResultVoid get_class_properties(metadata::RtClass* klass, const metadata::RtPropertyInfo*& properties, size_t& count);
+    static RtResult<const metadata::RtPropertyInfo*> get_class_property_by_name(metadata::RtClass* klass, const char* property_name);
+
+    static RtResultVoid get_class_events(metadata::RtClass* klass, const metadata::RtEventInfo*& events, size_t& count);
+    static RtResult<const metadata::RtEventInfo*> get_class_event_by_name(metadata::RtClass* klass, const char* event_name);
 };
 
-#define DECLARING_ALLOC_METHOD_ARGUMENT_BUFFER(arg_buff_name, offset, method)                                                                   \
+#define DECLARING_ALLOC_METHOD_ARGUMENT_BUFFER(arg_buff_name, offset, method)                                                         \
     interp::RtStackObject* arg_buff_name =                                                                                            \
         (interp::RtStackObject*)alloca(leanclr::RuntimeApi::get_total_arg_stack_object_size(method) * sizeof(interp::RtStackObject)); \
     size_t offset = 0;
 
 #define DECLARING_ALLOC_METHOD_RETURN_BUFFER(ret_buff_name, method) \
-    interp::RtStackObject* ret_buff_name =                \
+    interp::RtStackObject* ret_buff_name =                          \
         (interp::RtStackObject*)alloca(leanclr::RuntimeApi::get_return_value_stack_object_size(method) * sizeof(interp::RtStackObject));
 } // namespace leanclr

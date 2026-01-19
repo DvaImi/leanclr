@@ -767,6 +767,29 @@ const metadata::RtFieldInfo* Class::get_field_for_name(metadata::RtClass* klass,
     return nullptr;
 }
 
+
+
+const metadata::RtMethodInfo* Class::get_method_for_name(metadata::RtClass* klass, const char* name, bool search_parent)
+{
+    metadata::RtClass* cur = klass;
+    while (cur)
+    {
+        const metadata::RtMethodInfo** methods = cur->methods;
+        for (size_t i = 0; i < cur->method_count; ++i)
+        {
+            const metadata::RtMethodInfo* method = methods[i];
+            if (std::strcmp(method->name, name) == 0)
+            {
+                return method;
+            }
+        }
+        if (!search_parent || !cur->parent)
+            break;
+        cur = cur->parent;
+    }
+    return nullptr;
+}
+
 const metadata::RtPropertyInfo* Class::get_property_for_name(metadata::RtClass* klass, const char* name, bool search_parent)
 {
     metadata::RtClass* cur = klass;
@@ -803,7 +826,7 @@ const metadata::RtPropertyInfo* Class::get_property_for_name(metadata::RtClass* 
     return nullptr;
 }
 
-const metadata::RtEventInfo* Class::get_event_for_name(metadata::RtClass* klass, const char* name)
+const metadata::RtEventInfo* Class::get_event_for_name(metadata::RtClass* klass, const char* name, bool search_parent)
 {
     metadata::RtClass* cur = klass;
     while (cur)
@@ -814,7 +837,7 @@ const metadata::RtEventInfo* Class::get_event_for_name(metadata::RtClass* klass,
             if (strcmp(evt->name, name) == 0)
                 return evt;
         }
-        if (!cur->parent)
+        if (!search_parent || !cur->parent)
             break;
         cur = cur->parent;
     }

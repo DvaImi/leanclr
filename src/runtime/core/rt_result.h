@@ -18,25 +18,25 @@ class Result
 #endif
 
   public:
-    Result(const T& value) noexcept: _data(value)
+    Result(const T& value) noexcept : _data(value)
     {
     }
-    Result(T&& value) noexcept: _data(std::move(value))
-    {
-    }
-
-    Result(const E& error) noexcept: _data(error)
+    Result(T&& value) noexcept : _data(std::move(value))
     {
     }
 
-    Result(E&& error) noexcept: _data(std::move(error))
+    Result(const E& error) noexcept : _data(error)
+    {
+    }
+
+    Result(E&& error) noexcept : _data(std::move(error))
     {
     }
 
     Result(const Result<T, E>& other) = delete;
-    Result<T, E>& operator = (const Result<T, E>& other) = delete;
+    Result<T, E>& operator=(const Result<T, E>& other) = delete;
 
-    Result(Result<T, E>&& other) noexcept: _data(std::move(other._data))
+    Result(Result<T, E>&& other) noexcept : _data(std::move(other._data))
     {
 #ifndef NDEBUG
         _checked = other._checked;
@@ -128,18 +128,18 @@ class ResultVoid
 #endif
 
   public:
-    ResultVoid(const Unit& value) noexcept: _is_ok(true)
+    ResultVoid(const Unit& value) noexcept : _is_ok(true)
     {
     }
 
-    ResultVoid(const E& error) noexcept: _err(error), _is_ok(false)
+    ResultVoid(const E& error) noexcept : _err(error), _is_ok(false)
     {
     }
 
     ResultVoid(const ResultVoid<E>& other) = delete;
-    ResultVoid<E>& operator = (const ResultVoid<E>& other) = delete;
+    ResultVoid<E>& operator=(const ResultVoid<E>& other) = delete;
 
-    ResultVoid(ResultVoid<E>&& other) noexcept: _err(other._err), _is_ok(other._is_ok)
+    ResultVoid(ResultVoid<E>&& other) noexcept : _err(other._err), _is_ok(other._is_ok)
     {
 #ifndef NDEBUG
         _checked = other._checked;

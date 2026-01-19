@@ -388,6 +388,11 @@ RtResultVoid Runtime::initialize()
     RET_VOID_OK();
 }
 
+void Runtime::shutdown()
+{
+    // todo: implement shutdown logic
+}
+
 RtResultVoid Runtime::run_class_static_constructor(metadata::RtClass* klass)
 {
     assert(klass);

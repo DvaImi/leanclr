@@ -608,7 +608,7 @@ T* get_static_field_address(const metadata::RtFieldInfo* field)
 
 #else
 
-#define LEANCLR_SWITCH_N(n,op_offset) switch (*(ll::OpCodeValue##n*)(ip + op_offset))
+#define LEANCLR_SWITCH_N(n, op_offset) switch (*(ll::OpCodeValue##n*)(ip + op_offset))
 #define LEANCLR_CONTINUE_N(n, op_offset) continue
 
 #define LEANCLR_CASE_BEGIN_N(n, code) \
@@ -678,7 +678,7 @@ RtResult<const RtStackObject*> Interpreter::execute(const metadata::RtMethodInfo
 
 #pragma region goto_lable
 #if LEANCLR_USE_COMPUTED_GOTO_DISPATCHER
-///{{COMPUTED_GOTO_LABELS
+    ///{{COMPUTED_GOTO_LABELS
     static void* const in_labels0[] = {
         &&LABEL0_InitLocals1Short,
         &&LABEL0_InitLocals2Short,
@@ -1190,179 +1190,55 @@ RtResult<const RtStackObject*> Interpreter::execute(const metadata::RtMethodInfo
         &&LABEL1_EndFault,
     };
     static void* const in_labels2[] = {
-        &&LABEL2_LdIndI1,
-        &&LABEL2_LdIndU1,
-        &&LABEL2_LdIndI2,
-        &&LABEL2_LdIndU2,
-        &&LABEL2_LdIndI4,
-        &&LABEL2_LdIndI8,
-        &&LABEL2_StIndI1,
-        &&LABEL2_StIndI2,
-        &&LABEL2_StIndI4,
-        &&LABEL2_StIndI8,
-        &&LABEL2_StIndI8I4,
-        &&LABEL2_StIndI8U4,
-        &&LABEL2_ConvI1I4,
-        &&LABEL2_ConvI1I8,
-        &&LABEL2_ConvI1R4,
-        &&LABEL2_ConvI1R8,
-        &&LABEL2_ConvU1I4,
-        &&LABEL2_ConvU1I8,
-        &&LABEL2_ConvU1R4,
-        &&LABEL2_ConvU1R8,
-        &&LABEL2_ConvI2I4,
-        &&LABEL2_ConvI2I8,
-        &&LABEL2_ConvI2R4,
-        &&LABEL2_ConvI2R8,
-        &&LABEL2_ConvU2I4,
-        &&LABEL2_ConvU2I8,
-        &&LABEL2_ConvU2R4,
-        &&LABEL2_ConvU2R8,
-        &&LABEL2_ConvI4I8,
-        &&LABEL2_ConvI4R4,
-        &&LABEL2_ConvI4R8,
-        &&LABEL2_ConvU4I8,
-        &&LABEL2_ConvU4R4,
-        &&LABEL2_ConvU4R8,
-        &&LABEL2_ConvI8I4,
-        &&LABEL2_ConvI8U4,
-        &&LABEL2_ConvI8R4,
-        &&LABEL2_ConvI8R8,
-        &&LABEL2_ConvU8I4,
-        &&LABEL2_ConvU8R4,
-        &&LABEL2_ConvU8R8,
-        &&LABEL2_ConvR4I4,
-        &&LABEL2_ConvR4I8,
-        &&LABEL2_ConvR4R8,
-        &&LABEL2_ConvR8I4,
-        &&LABEL2_ConvR8I8,
-        &&LABEL2_ConvR8R4,
-        &&LABEL2_LdelemaReadOnly,
-        &&LABEL2_InitBlk,
-        &&LABEL2_CpBlk,
-        &&LABEL2_GetEnumLongHashCode,
+        &&LABEL2_LdIndI1,  &&LABEL2_LdIndU1,   &&LABEL2_LdIndI2,
+        &&LABEL2_LdIndU2,  &&LABEL2_LdIndI4,   &&LABEL2_LdIndI8,
+        &&LABEL2_StIndI1,  &&LABEL2_StIndI2,   &&LABEL2_StIndI4,
+        &&LABEL2_StIndI8,  &&LABEL2_StIndI8I4, &&LABEL2_StIndI8U4,
+        &&LABEL2_ConvI1I4, &&LABEL2_ConvI1I8,  &&LABEL2_ConvI1R4,
+        &&LABEL2_ConvI1R8, &&LABEL2_ConvU1I4,  &&LABEL2_ConvU1I8,
+        &&LABEL2_ConvU1R4, &&LABEL2_ConvU1R8,  &&LABEL2_ConvI2I4,
+        &&LABEL2_ConvI2I8, &&LABEL2_ConvI2R4,  &&LABEL2_ConvI2R8,
+        &&LABEL2_ConvU2I4, &&LABEL2_ConvU2I8,  &&LABEL2_ConvU2R4,
+        &&LABEL2_ConvU2R8, &&LABEL2_ConvI4I8,  &&LABEL2_ConvI4R4,
+        &&LABEL2_ConvI4R8, &&LABEL2_ConvU4I8,  &&LABEL2_ConvU4R4,
+        &&LABEL2_ConvU4R8, &&LABEL2_ConvI8I4,  &&LABEL2_ConvI8U4,
+        &&LABEL2_ConvI8R4, &&LABEL2_ConvI8R8,  &&LABEL2_ConvU8I4,
+        &&LABEL2_ConvU8R4, &&LABEL2_ConvU8R8,  &&LABEL2_ConvR4I4,
+        &&LABEL2_ConvR4I8, &&LABEL2_ConvR4R8,  &&LABEL2_ConvR8I4,
+        &&LABEL2_ConvR8I8, &&LABEL2_ConvR8R4,  &&LABEL2_LdelemaReadOnly,
+        &&LABEL2_InitBlk,  &&LABEL2_CpBlk,     &&LABEL2_GetEnumLongHashCode,
     };
     static void* const in_labels3[] = {
-        &&LABEL3_LdIndI2Unaligned,
-        &&LABEL3_LdIndU2Unaligned,
-        &&LABEL3_LdIndI4Unaligned,
-        &&LABEL3_LdIndI8Unaligned,
-        &&LABEL3_StIndI2Unaligned,
-        &&LABEL3_StIndI4Unaligned,
-        &&LABEL3_StIndI8Unaligned,
-        &&LABEL3_StIndI8I4Unaligned,
-        &&LABEL3_StIndI8U4Unaligned,
-        &&LABEL3_AddOvfI4,
-        &&LABEL3_AddOvfI8,
-        &&LABEL3_AddOvfUnI4,
-        &&LABEL3_AddOvfUnI8,
-        &&LABEL3_MulOvfI4,
-        &&LABEL3_MulOvfI8,
-        &&LABEL3_MulOvfUnI4,
-        &&LABEL3_MulOvfUnI8,
-        &&LABEL3_SubOvfI4,
-        &&LABEL3_SubOvfI8,
-        &&LABEL3_SubOvfUnI4,
-        &&LABEL3_SubOvfUnI8,
-        &&LABEL3_ConvOvfI1I4,
-        &&LABEL3_ConvOvfI1I8,
-        &&LABEL3_ConvOvfI1R4,
-        &&LABEL3_ConvOvfI1R8,
-        &&LABEL3_ConvOvfU1I4,
-        &&LABEL3_ConvOvfU1I8,
-        &&LABEL3_ConvOvfU1R4,
-        &&LABEL3_ConvOvfU1R8,
-        &&LABEL3_ConvOvfI2I4,
-        &&LABEL3_ConvOvfI2I8,
-        &&LABEL3_ConvOvfI2R4,
-        &&LABEL3_ConvOvfI2R8,
-        &&LABEL3_ConvOvfU2I4,
-        &&LABEL3_ConvOvfU2I8,
-        &&LABEL3_ConvOvfU2R4,
-        &&LABEL3_ConvOvfU2R8,
-        &&LABEL3_ConvOvfI4I8,
-        &&LABEL3_ConvOvfI4R4,
-        &&LABEL3_ConvOvfI4R8,
-        &&LABEL3_ConvOvfU4I4,
-        &&LABEL3_ConvOvfU4I8,
-        &&LABEL3_ConvOvfU4R4,
-        &&LABEL3_ConvOvfU4R8,
-        &&LABEL3_ConvOvfI8R4,
-        &&LABEL3_ConvOvfI8R8,
-        &&LABEL3_ConvOvfU8I4,
-        &&LABEL3_ConvOvfU8I8,
-        &&LABEL3_ConvOvfU8R4,
-        &&LABEL3_ConvOvfU8R8,
-        &&LABEL3_ConvOvfI1UnI4,
-        &&LABEL3_ConvOvfI1UnI8,
-        &&LABEL3_ConvOvfI1UnR4,
-        &&LABEL3_ConvOvfI1UnR8,
-        &&LABEL3_ConvOvfU1UnI4,
-        &&LABEL3_ConvOvfU1UnI8,
-        &&LABEL3_ConvOvfU1UnR4,
-        &&LABEL3_ConvOvfU1UnR8,
-        &&LABEL3_ConvOvfI2UnI4,
-        &&LABEL3_ConvOvfI2UnI8,
-        &&LABEL3_ConvOvfI2UnR4,
-        &&LABEL3_ConvOvfI2UnR8,
-        &&LABEL3_ConvOvfU2UnI4,
-        &&LABEL3_ConvOvfU2UnI8,
-        &&LABEL3_ConvOvfU2UnR4,
-        &&LABEL3_ConvOvfU2UnR8,
-        &&LABEL3_ConvOvfI4UnI4,
-        &&LABEL3_ConvOvfI4UnI8,
-        &&LABEL3_ConvOvfI4UnR4,
-        &&LABEL3_ConvOvfI4UnR8,
-        &&LABEL3_ConvOvfU4UnI8,
-        &&LABEL3_ConvOvfU4UnR4,
-        &&LABEL3_ConvOvfU4UnR8,
-        &&LABEL3_ConvOvfI8UnI8,
-        &&LABEL3_ConvOvfI8UnR4,
-        &&LABEL3_ConvOvfI8UnR8,
-        &&LABEL3_ConvOvfU8UnR4,
-        &&LABEL3_ConvOvfU8UnR8,
-        &&LABEL3_InitObjI2Unaligned,
-        &&LABEL3_InitObjI4Unaligned,
-        &&LABEL3_InitObjI8Unaligned,
-        &&LABEL3_LdfldI1Large,
-        &&LABEL3_LdfldU1Large,
-        &&LABEL3_LdfldI2Large,
-        &&LABEL3_LdfldI2Unaligned,
-        &&LABEL3_LdfldU2Large,
-        &&LABEL3_LdfldU2Unaligned,
-        &&LABEL3_LdfldI4Large,
-        &&LABEL3_LdfldI4Unaligned,
-        &&LABEL3_LdfldI8Large,
-        &&LABEL3_LdfldI8Unaligned,
-        &&LABEL3_LdfldAnyLarge,
-        &&LABEL3_LdvfldI1Large,
-        &&LABEL3_LdvfldU1Large,
-        &&LABEL3_LdvfldI2Large,
-        &&LABEL3_LdvfldI2Unaligned,
-        &&LABEL3_LdvfldU2Large,
-        &&LABEL3_LdvfldU2Unaligned,
-        &&LABEL3_LdvfldI4Large,
-        &&LABEL3_LdvfldI4Unaligned,
-        &&LABEL3_LdvfldI8Large,
-        &&LABEL3_LdvfldI8Unaligned,
-        &&LABEL3_LdvfldAnyLarge,
-        &&LABEL3_LdfldaLarge,
-        &&LABEL3_StfldI1Large,
-        &&LABEL3_StfldI2Large,
-        &&LABEL3_StfldI2Unaligned,
-        &&LABEL3_StfldI4Large,
-        &&LABEL3_StfldI4Unaligned,
-        &&LABEL3_StfldI8Large,
-        &&LABEL3_StfldI8Unaligned,
-        &&LABEL3_StfldAnyLarge,
+        &&LABEL3_LdIndI2Unaligned,   &&LABEL3_LdIndU2Unaligned,  &&LABEL3_LdIndI4Unaligned,   &&LABEL3_LdIndI8Unaligned,   &&LABEL3_StIndI2Unaligned,
+        &&LABEL3_StIndI4Unaligned,   &&LABEL3_StIndI8Unaligned,  &&LABEL3_StIndI8I4Unaligned, &&LABEL3_StIndI8U4Unaligned, &&LABEL3_AddOvfI4,
+        &&LABEL3_AddOvfI8,           &&LABEL3_AddOvfUnI4,        &&LABEL3_AddOvfUnI8,         &&LABEL3_MulOvfI4,           &&LABEL3_MulOvfI8,
+        &&LABEL3_MulOvfUnI4,         &&LABEL3_MulOvfUnI8,        &&LABEL3_SubOvfI4,           &&LABEL3_SubOvfI8,           &&LABEL3_SubOvfUnI4,
+        &&LABEL3_SubOvfUnI8,         &&LABEL3_ConvOvfI1I4,       &&LABEL3_ConvOvfI1I8,        &&LABEL3_ConvOvfI1R4,        &&LABEL3_ConvOvfI1R8,
+        &&LABEL3_ConvOvfU1I4,        &&LABEL3_ConvOvfU1I8,       &&LABEL3_ConvOvfU1R4,        &&LABEL3_ConvOvfU1R8,        &&LABEL3_ConvOvfI2I4,
+        &&LABEL3_ConvOvfI2I8,        &&LABEL3_ConvOvfI2R4,       &&LABEL3_ConvOvfI2R8,        &&LABEL3_ConvOvfU2I4,        &&LABEL3_ConvOvfU2I8,
+        &&LABEL3_ConvOvfU2R4,        &&LABEL3_ConvOvfU2R8,       &&LABEL3_ConvOvfI4I8,        &&LABEL3_ConvOvfI4R4,        &&LABEL3_ConvOvfI4R8,
+        &&LABEL3_ConvOvfU4I4,        &&LABEL3_ConvOvfU4I8,       &&LABEL3_ConvOvfU4R4,        &&LABEL3_ConvOvfU4R8,        &&LABEL3_ConvOvfI8R4,
+        &&LABEL3_ConvOvfI8R8,        &&LABEL3_ConvOvfU8I4,       &&LABEL3_ConvOvfU8I8,        &&LABEL3_ConvOvfU8R4,        &&LABEL3_ConvOvfU8R8,
+        &&LABEL3_ConvOvfI1UnI4,      &&LABEL3_ConvOvfI1UnI8,     &&LABEL3_ConvOvfI1UnR4,      &&LABEL3_ConvOvfI1UnR8,      &&LABEL3_ConvOvfU1UnI4,
+        &&LABEL3_ConvOvfU1UnI8,      &&LABEL3_ConvOvfU1UnR4,     &&LABEL3_ConvOvfU1UnR8,      &&LABEL3_ConvOvfI2UnI4,      &&LABEL3_ConvOvfI2UnI8,
+        &&LABEL3_ConvOvfI2UnR4,      &&LABEL3_ConvOvfI2UnR8,     &&LABEL3_ConvOvfU2UnI4,      &&LABEL3_ConvOvfU2UnI8,      &&LABEL3_ConvOvfU2UnR4,
+        &&LABEL3_ConvOvfU2UnR8,      &&LABEL3_ConvOvfI4UnI4,     &&LABEL3_ConvOvfI4UnI8,      &&LABEL3_ConvOvfI4UnR4,      &&LABEL3_ConvOvfI4UnR8,
+        &&LABEL3_ConvOvfU4UnI8,      &&LABEL3_ConvOvfU4UnR4,     &&LABEL3_ConvOvfU4UnR8,      &&LABEL3_ConvOvfI8UnI8,      &&LABEL3_ConvOvfI8UnR4,
+        &&LABEL3_ConvOvfI8UnR8,      &&LABEL3_ConvOvfU8UnR4,     &&LABEL3_ConvOvfU8UnR8,      &&LABEL3_InitObjI2Unaligned, &&LABEL3_InitObjI4Unaligned,
+        &&LABEL3_InitObjI8Unaligned, &&LABEL3_LdfldI1Large,      &&LABEL3_LdfldU1Large,       &&LABEL3_LdfldI2Large,       &&LABEL3_LdfldI2Unaligned,
+        &&LABEL3_LdfldU2Large,       &&LABEL3_LdfldU2Unaligned,  &&LABEL3_LdfldI4Large,       &&LABEL3_LdfldI4Unaligned,   &&LABEL3_LdfldI8Large,
+        &&LABEL3_LdfldI8Unaligned,   &&LABEL3_LdfldAnyLarge,     &&LABEL3_LdvfldI1Large,      &&LABEL3_LdvfldU1Large,      &&LABEL3_LdvfldI2Large,
+        &&LABEL3_LdvfldI2Unaligned,  &&LABEL3_LdvfldU2Large,     &&LABEL3_LdvfldU2Unaligned,  &&LABEL3_LdvfldI4Large,      &&LABEL3_LdvfldI4Unaligned,
+        &&LABEL3_LdvfldI8Large,      &&LABEL3_LdvfldI8Unaligned, &&LABEL3_LdvfldAnyLarge,     &&LABEL3_LdfldaLarge,        &&LABEL3_StfldI1Large,
+        &&LABEL3_StfldI2Large,       &&LABEL3_StfldI2Unaligned,  &&LABEL3_StfldI4Large,       &&LABEL3_StfldI4Unaligned,   &&LABEL3_StfldI8Large,
+        &&LABEL3_StfldI8Unaligned,   &&LABEL3_StfldAnyLarge,
     };
     static void* const in_labels4[] = {
         &&LABEL4_Illegal,
         &&LABEL4_Nop,
         &&LABEL4_Arglist,
     };
-    static void* const in_labels5[] = {
-    };
+    static void* const in_labels5[] = {};
 
 ///}}COMPUTED_GOTO_LABELS
 #endif
@@ -3712,8 +3588,7 @@ method_start:
                 RtStackObject* original_frame_base = eval_stack_base + ir->frame_base;
                 const size_t value_stack_objects = InterpDefs::get_stack_object_size_by_byte_size(klass->instance_size_without_header);
                 RtStackObject* final_frame_base = original_frame_base + value_stack_objects;
-                std::memmove(final_frame_base + 1, original_frame_base,
-                             static_cast<size_t>(ir->total_params_stack_object_size) * sizeof(RtStackObject));
+                std::memmove(final_frame_base + 1, original_frame_base, static_cast<size_t>(ir->total_params_stack_object_size) * sizeof(RtStackObject));
                 final_frame_base->ptr = original_frame_base;
                 std::memset(original_frame_base, 0, value_stack_objects * sizeof(RtStackObject));
                 ENTER_INTERP_FRAME(ctor, ir->frame_base + value_stack_objects, reinterpret_cast<const uint8_t*>(ir + 1));
@@ -7058,7 +6933,7 @@ method_start:
                         utils::MemOp::write_i64_may_unaligned(addr, value);
                     }
                     LEANCLR_CASE_END3()
-                    
+
                     LEANCLR_CASE_BEGIN3(StIndI8I4Unaligned)
                     {
                         uint8_t* addr = get_stack_value_at<uint8_t*>(eval_stack_base, ir->dst);
@@ -7242,25 +7117,23 @@ method_start:
                     LEANCLR_CASE_BEGIN3(ConvOvfI1R4)
                     {
                         float src = get_stack_value_at<float>(eval_stack_base, ir->src);
-                        if (src < static_cast<float>(std::numeric_limits<int8_t>::min()) ||
-                            src > static_cast<float>(std::numeric_limits<int8_t>::max()) ||
+                        if (src < static_cast<float>(std::numeric_limits<int8_t>::min()) || src > static_cast<float>(std::numeric_limits<int8_t>::max()) ||
                             std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<float,int8_t>(src));
+                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<float, int8_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfI1R8)
                     {
                         double src = get_stack_value_at<double>(eval_stack_base, ir->src);
-                        if (src < static_cast<double>(std::numeric_limits<int8_t>::min()) ||
-                            src > static_cast<double>(std::numeric_limits<int8_t>::max()) ||
+                        if (src < static_cast<double>(std::numeric_limits<int8_t>::min()) || src > static_cast<double>(std::numeric_limits<int8_t>::max()) ||
                             std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<double,int8_t>(src));
+                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<double, int8_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfU1I4)
@@ -7288,25 +7161,23 @@ method_start:
                     LEANCLR_CASE_BEGIN3(ConvOvfU1R4)
                     {
                         float src = get_stack_value_at<float>(eval_stack_base, ir->src);
-                        if (src < static_cast<float>(std::numeric_limits<uint8_t>::min()) ||
-                            src > static_cast<float>(std::numeric_limits<uint8_t>::max()) ||
+                        if (src < static_cast<float>(std::numeric_limits<uint8_t>::min()) || src > static_cast<float>(std::numeric_limits<uint8_t>::max()) ||
                             std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<float,uint8_t>(src));
+                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<float, uint8_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfU1R8)
                     {
                         double src = get_stack_value_at<double>(eval_stack_base, ir->src);
-                        if (src < static_cast<double>(std::numeric_limits<uint8_t>::min()) ||
-                            src > static_cast<double>(std::numeric_limits<uint8_t>::max()) ||
+                        if (src < static_cast<double>(std::numeric_limits<uint8_t>::min()) || src > static_cast<double>(std::numeric_limits<uint8_t>::max()) ||
                             std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<double,uint8_t>(src));
+                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<double, uint8_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfI2I4)
@@ -7334,25 +7205,23 @@ method_start:
                     LEANCLR_CASE_BEGIN3(ConvOvfI2R4)
                     {
                         float src = get_stack_value_at<float>(eval_stack_base, ir->src);
-                        if (src < static_cast<float>(std::numeric_limits<int16_t>::min()) ||
-                            src > static_cast<float>(std::numeric_limits<int16_t>::max()) ||
+                        if (src < static_cast<float>(std::numeric_limits<int16_t>::min()) || src > static_cast<float>(std::numeric_limits<int16_t>::max()) ||
                             std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<float,int16_t>(src));
+                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<float, int16_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfI2R8)
                     {
                         double src = get_stack_value_at<double>(eval_stack_base, ir->src);
-                        if (src < static_cast<double>(std::numeric_limits<int16_t>::min()) ||
-                            src > static_cast<double>(std::numeric_limits<int16_t>::max()) ||
+                        if (src < static_cast<double>(std::numeric_limits<int16_t>::min()) || src > static_cast<double>(std::numeric_limits<int16_t>::max()) ||
                             std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<double,int16_t>(src));
+                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<double, int16_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfU2I4)
@@ -7380,25 +7249,23 @@ method_start:
                     LEANCLR_CASE_BEGIN3(ConvOvfU2R4)
                     {
                         float src = get_stack_value_at<float>(eval_stack_base, ir->src);
-                        if (src < static_cast<float>(std::numeric_limits<uint16_t>::min()) ||
-                            src > static_cast<float>(std::numeric_limits<uint16_t>::max()) ||
+                        if (src < static_cast<float>(std::numeric_limits<uint16_t>::min()) || src > static_cast<float>(std::numeric_limits<uint16_t>::max()) ||
                             std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<float,uint16_t>(src));
+                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<float, uint16_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfU2R8)
                     {
                         double src = get_stack_value_at<double>(eval_stack_base, ir->src);
                         if (src < static_cast<double>(std::numeric_limits<uint16_t>::min()) ||
-                            src > static_cast<double>(std::numeric_limits<uint16_t>::max()) ||
-                            std::isnan(src))
+                            src > static_cast<double>(std::numeric_limits<uint16_t>::max()) || std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<double,uint16_t>(src));
+                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<double, uint16_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfI4I8)
@@ -7415,25 +7282,23 @@ method_start:
                     LEANCLR_CASE_BEGIN3(ConvOvfI4R4)
                     {
                         float src = get_stack_value_at<float>(eval_stack_base, ir->src);
-                        if (src < static_cast<float>(std::numeric_limits<int32_t>::min()) ||
-                            src > static_cast<float>(std::numeric_limits<int32_t>::max()) ||
+                        if (src < static_cast<float>(std::numeric_limits<int32_t>::min()) || src > static_cast<float>(std::numeric_limits<int32_t>::max()) ||
                             std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<float,int32_t>(src));
+                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<float, int32_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfI4R8)
                     {
                         double src = get_stack_value_at<double>(eval_stack_base, ir->src);
-                        if (src < static_cast<double>(std::numeric_limits<int32_t>::min()) ||
-                            src > static_cast<double>(std::numeric_limits<int32_t>::max()) ||
+                        if (src < static_cast<double>(std::numeric_limits<int32_t>::min()) || src > static_cast<double>(std::numeric_limits<int32_t>::max()) ||
                             std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<double,int32_t>(src));
+                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<double, int32_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfU4I4)
@@ -7461,49 +7326,43 @@ method_start:
                     LEANCLR_CASE_BEGIN3(ConvOvfU4R4)
                     {
                         float src = get_stack_value_at<float>(eval_stack_base, ir->src);
-                        if (src < 0.0f ||
-                            src > static_cast<float>(std::numeric_limits<uint32_t>::max()) ||
-                            std::isnan(src))
+                        if (src < 0.0f || src > static_cast<float>(std::numeric_limits<uint32_t>::max()) || std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<float,uint32_t>(src));
+                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<float, uint32_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfU4R8)
                     {
                         double src = get_stack_value_at<double>(eval_stack_base, ir->src);
-                        if (src < 0.0 ||
-                            src > static_cast<double>(std::numeric_limits<uint32_t>::max()) ||
-                            std::isnan(src))
+                        if (src < 0.0 || src > static_cast<double>(std::numeric_limits<uint32_t>::max()) || std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<double,uint32_t>(src));
+                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<double, uint32_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfI8R4)
                     {
                         float src = get_stack_value_at<float>(eval_stack_base, ir->src);
-                        if (src < static_cast<float>(std::numeric_limits<int64_t>::min()) ||
-                            src > static_cast<float>(std::numeric_limits<int64_t>::max()) ||
+                        if (src < static_cast<float>(std::numeric_limits<int64_t>::min()) || src > static_cast<float>(std::numeric_limits<int64_t>::max()) ||
                             std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int64_t>(eval_stack_base, ir->dst, cast_float_to_i64<float,int64_t>(src));
+                        set_stack_value_at<int64_t>(eval_stack_base, ir->dst, cast_float_to_i64<float, int64_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfI8R8)
                     {
                         double src = get_stack_value_at<double>(eval_stack_base, ir->src);
-                        if (src < static_cast<double>(std::numeric_limits<int64_t>::min()) ||
-                            src > static_cast<double>(std::numeric_limits<int64_t>::max()) ||
+                        if (src < static_cast<double>(std::numeric_limits<int64_t>::min()) || src > static_cast<double>(std::numeric_limits<int64_t>::max()) ||
                             std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int64_t>(eval_stack_base, ir->dst, cast_float_to_i64<double,int64_t>(src));
+                        set_stack_value_at<int64_t>(eval_stack_base, ir->dst, cast_float_to_i64<double, int64_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfU8I4)
@@ -7530,25 +7389,21 @@ method_start:
                     LEANCLR_CASE_BEGIN3(ConvOvfU8R4)
                     {
                         float src = get_stack_value_at<float>(eval_stack_base, ir->src);
-                        if (src < 0.0f ||
-                            src > static_cast<float>(std::numeric_limits<uint64_t>::max()) ||
-                            std::isnan(src))
+                        if (src < 0.0f || src > static_cast<float>(std::numeric_limits<uint64_t>::max()) || std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int64_t>(eval_stack_base, ir->dst, cast_float_to_i64<float,uint64_t>(src));
+                        set_stack_value_at<int64_t>(eval_stack_base, ir->dst, cast_float_to_i64<float, uint64_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfU8R8)
                     {
                         double src = get_stack_value_at<double>(eval_stack_base, ir->src);
-                        if (src < 0.0 ||
-                            src > static_cast<double>(std::numeric_limits<uint64_t>::max()) ||
-                            std::isnan(src))
+                        if (src < 0.0 || src > static_cast<double>(std::numeric_limits<uint64_t>::max()) || std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int64_t>(eval_stack_base, ir->dst, cast_float_to_i64<double,uint64_t>(src));
+                        set_stack_value_at<int64_t>(eval_stack_base, ir->dst, cast_float_to_i64<double, uint64_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfI1UnI4)
@@ -7576,25 +7431,21 @@ method_start:
                     LEANCLR_CASE_BEGIN3(ConvOvfI1UnR4)
                     {
                         float src = get_stack_value_at<float>(eval_stack_base, ir->src);
-                        if (src < 0.0f ||
-                            src > static_cast<float>(std::numeric_limits<int8_t>::max()) ||
-                            std::isnan(src))
+                        if (src < 0.0f || src > static_cast<float>(std::numeric_limits<int8_t>::max()) || std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<float,int8_t>(src));
+                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<float, int8_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfI1UnR8)
                     {
                         double src = get_stack_value_at<double>(eval_stack_base, ir->src);
-                        if (src < 0.0 ||
-                            src > static_cast<double>(std::numeric_limits<int8_t>::max()) ||
-                            std::isnan(src))
+                        if (src < 0.0 || src > static_cast<double>(std::numeric_limits<int8_t>::max()) || std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<double,int8_t>(src));
+                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<double, int8_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfU1UnI4)
@@ -7622,25 +7473,21 @@ method_start:
                     LEANCLR_CASE_BEGIN3(ConvOvfU1UnR4)
                     {
                         float src = get_stack_value_at<float>(eval_stack_base, ir->src);
-                        if (src < 0.0f ||
-                            src > static_cast<float>(std::numeric_limits<uint8_t>::max()) ||
-                            std::isnan(src))
+                        if (src < 0.0f || src > static_cast<float>(std::numeric_limits<uint8_t>::max()) || std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<float,uint8_t>(src));
+                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<float, uint8_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfU1UnR8)
                     {
                         double src = get_stack_value_at<double>(eval_stack_base, ir->src);
-                        if (src < 0.0 ||
-                            src > static_cast<double>(std::numeric_limits<uint8_t>::max()) ||
-                            std::isnan(src))
+                        if (src < 0.0 || src > static_cast<double>(std::numeric_limits<uint8_t>::max()) || std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<double,uint8_t>(src));
+                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<double, uint8_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfI2UnI4)
@@ -7668,25 +7515,21 @@ method_start:
                     LEANCLR_CASE_BEGIN3(ConvOvfI2UnR4)
                     {
                         float src = get_stack_value_at<float>(eval_stack_base, ir->src);
-                        if (src < 0.0f ||
-                            src > static_cast<float>(std::numeric_limits<int16_t>::max()) ||
-                            std::isnan(src))
+                        if (src < 0.0f || src > static_cast<float>(std::numeric_limits<int16_t>::max()) || std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<float,int16_t>(src));
+                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<float, int16_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfI2UnR8)
                     {
                         double src = get_stack_value_at<double>(eval_stack_base, ir->src);
-                        if (src < 0.0 ||
-                            src > static_cast<double>(std::numeric_limits<int16_t>::max()) ||
-                            std::isnan(src))
+                        if (src < 0.0 || src > static_cast<double>(std::numeric_limits<int16_t>::max()) || std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<double,int16_t>(src));
+                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<double, int16_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfU2UnI4)
@@ -7714,25 +7557,21 @@ method_start:
                     LEANCLR_CASE_BEGIN3(ConvOvfU2UnR4)
                     {
                         float src = get_stack_value_at<float>(eval_stack_base, ir->src);
-                        if (src < 0.0f ||
-                            src > static_cast<float>(std::numeric_limits<uint16_t>::max()) ||
-                            std::isnan(src))
+                        if (src < 0.0f || src > static_cast<float>(std::numeric_limits<uint16_t>::max()) || std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<float,uint16_t>(src));
+                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<float, uint16_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfU2UnR8)
                     {
                         double src = get_stack_value_at<double>(eval_stack_base, ir->src);
-                        if (src < 0.0 ||
-                            src > static_cast<double>(std::numeric_limits<uint16_t>::max()) ||
-                            std::isnan(src))
+                        if (src < 0.0 || src > static_cast<double>(std::numeric_limits<uint16_t>::max()) || std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<double,uint16_t>(src));
+                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<double, uint16_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfI4UnI4)
@@ -7760,25 +7599,21 @@ method_start:
                     LEANCLR_CASE_BEGIN3(ConvOvfI4UnR4)
                     {
                         float src = get_stack_value_at<float>(eval_stack_base, ir->src);
-                        if (src < 0.0f ||
-                            src > static_cast<float>(std::numeric_limits<int32_t>::max()) ||
-                            std::isnan(src))
+                        if (src < 0.0f || src > static_cast<float>(std::numeric_limits<int32_t>::max()) || std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<float,int32_t>(src));
+                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<float, int32_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfI4UnR8)
                     {
                         double src = get_stack_value_at<double>(eval_stack_base, ir->src);
-                        if (src < 0.0 ||
-                            src > static_cast<double>(std::numeric_limits<int32_t>::max()) ||
-                            std::isnan(src))
+                        if (src < 0.0 || src > static_cast<double>(std::numeric_limits<int32_t>::max()) || std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<double,int32_t>(src));
+                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<double, int32_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfU4UnI8)
@@ -7795,25 +7630,21 @@ method_start:
                     LEANCLR_CASE_BEGIN3(ConvOvfU4UnR4)
                     {
                         float src = get_stack_value_at<float>(eval_stack_base, ir->src);
-                        if (src < 0.0f ||
-                            src > static_cast<float>(std::numeric_limits<uint32_t>::max()) ||
-                            std::isnan(src))
+                        if (src < 0.0f || src > static_cast<float>(std::numeric_limits<uint32_t>::max()) || std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<float,uint32_t>(src));
+                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<float, uint32_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfU4UnR8)
                     {
                         double src = get_stack_value_at<double>(eval_stack_base, ir->src);
-                        if (src < 0.0 ||
-                            src > static_cast<double>(std::numeric_limits<uint32_t>::max()) ||
-                            std::isnan(src))
+                        if (src < 0.0 || src > static_cast<double>(std::numeric_limits<uint32_t>::max()) || std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<double,uint32_t>(src));
+                        set_stack_value_at<int32_t>(eval_stack_base, ir->dst, cast_float_to_i32<double, uint32_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfI8UnI8)
@@ -7830,49 +7661,41 @@ method_start:
                     LEANCLR_CASE_BEGIN3(ConvOvfI8UnR4)
                     {
                         float src = get_stack_value_at<float>(eval_stack_base, ir->src);
-                        if (src < 0.0f ||
-                            src > static_cast<float>(std::numeric_limits<int64_t>::max()) ||
-                            std::isnan(src))
+                        if (src < 0.0f || src > static_cast<float>(std::numeric_limits<int64_t>::max()) || std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int64_t>(eval_stack_base, ir->dst, cast_float_to_i64<float,int64_t>(src));
+                        set_stack_value_at<int64_t>(eval_stack_base, ir->dst, cast_float_to_i64<float, int64_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfI8UnR8)
                     {
                         double src = get_stack_value_at<double>(eval_stack_base, ir->src);
-                        if (src < 0.0 ||
-                            src > static_cast<double>(std::numeric_limits<int64_t>::max()) ||
-                            std::isnan(src))
+                        if (src < 0.0 || src > static_cast<double>(std::numeric_limits<int64_t>::max()) || std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<int64_t>(eval_stack_base, ir->dst, cast_float_to_i64<double,int64_t>(src));
+                        set_stack_value_at<int64_t>(eval_stack_base, ir->dst, cast_float_to_i64<double, int64_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfU8UnR4)
                     {
                         float src = get_stack_value_at<float>(eval_stack_base, ir->src);
-                        if (src < 0.0f ||
-                            src > static_cast<float>(std::numeric_limits<uint64_t>::max()) ||
-                            std::isnan(src))
+                        if (src < 0.0f || src > static_cast<float>(std::numeric_limits<uint64_t>::max()) || std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<uint64_t>(eval_stack_base, ir->dst, cast_float_to_i64<float,uint64_t>(src));
+                        set_stack_value_at<uint64_t>(eval_stack_base, ir->dst, cast_float_to_i64<float, uint64_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(ConvOvfU8UnR8)
                     {
                         double src = get_stack_value_at<double>(eval_stack_base, ir->src);
-                        if (src < 0.0 ||
-                            src > static_cast<double>(std::numeric_limits<uint64_t>::max()) ||
-                            std::isnan(src))
+                        if (src < 0.0 || src > static_cast<double>(std::numeric_limits<uint64_t>::max()) || std::isnan(src))
                         {
                             RAISE_RUNTIME_ERROR(RtErr::Overflow);
                         }
-                        set_stack_value_at<uint64_t>(eval_stack_base, ir->dst, cast_float_to_i64<double,uint64_t>(src));
+                        set_stack_value_at<uint64_t>(eval_stack_base, ir->dst, cast_float_to_i64<double, uint64_t>(src));
                     }
                     LEANCLR_CASE_END3()
                     LEANCLR_CASE_BEGIN3(InitObjI2Unaligned)
@@ -8224,7 +8047,6 @@ method_start:
             LEANCLR_CASE_END_LITE0()
             LEANCLR_CASE_BEGIN_LITE0(Prefix4)
             {
-
                 LEANCLR_SWITCH4()
                 {
                     LEANCLR_CASE_BEGIN4(Illegal)

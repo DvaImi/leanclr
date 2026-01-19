@@ -1275,13 +1275,12 @@ RtResultVoid Transformer::transform_instructions()
                 break;
 
             case hl::OpCodeEnum::ConvOvfI8Un:
-                RET_ERR_ON_FAIL(transform_conv(ll_inst, hl_inst, OpCodeEnum::ConvI8U4, OpCodeEnum::ConvOvfI8UnI8, OpCodeEnum::ConvOvfI8UnR4,
-                                               OpCodeEnum::ConvOvfI8UnR8));
+                RET_ERR_ON_FAIL(
+                    transform_conv(ll_inst, hl_inst, OpCodeEnum::ConvI8U4, OpCodeEnum::ConvOvfI8UnI8, OpCodeEnum::ConvOvfI8UnR4, OpCodeEnum::ConvOvfI8UnR8));
                 break;
 
             case hl::OpCodeEnum::ConvOvfU8Un:
-                RET_ERR_ON_FAIL(
-                    transform_conv(ll_inst, hl_inst, OpCodeEnum::ConvI8U4, OpCodeEnum::Nop, OpCodeEnum::ConvOvfU8UnR4, OpCodeEnum::ConvOvfU8UnR8));
+                RET_ERR_ON_FAIL(transform_conv(ll_inst, hl_inst, OpCodeEnum::ConvI8U4, OpCodeEnum::Nop, OpCodeEnum::ConvOvfU8UnR4, OpCodeEnum::ConvOvfU8UnR8));
                 add = ll_inst->get_opcode() != OpCodeEnum::Nop;
                 break;
 

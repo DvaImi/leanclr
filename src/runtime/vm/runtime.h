@@ -10,6 +10,7 @@ class Runtime
 {
   public:
     static RtResultVoid initialize();
+    static void shutdown();
 
     // Static constructor runners
     static RtResultVoid run_class_static_constructor(metadata::RtClass* klass);
