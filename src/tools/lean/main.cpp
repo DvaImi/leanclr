@@ -73,6 +73,62 @@ static void print_usage(const char* program_name)
               << "  " << program_name << " -e MyNamespace.MyClass::Main MyApp\n";
 }
 
+static void print_error_and_exit(const std::string& err_message, RtErr err)
+{
+    std::cerr << "Error: " << err_message << " (Error code: " << static_cast<int>(err) << ")" << std::endl;
+
+    vm::RtException* ex = vm::Exception::raise_error_as_exception(err, nullptr, nullptr);
+    if (!ex)
+    {
+        std::cerr << "Failed to raise exception for invocation error" << std::endl;
+        std::exit(-1);
+    }
+
+    const metadata::RtPropertyInfo* prop = vm::Class::get_property_for_name(ex->klass, "StackTrace", true);
+    assert(prop);
+    auto ret = vm::Runtime::invoke_with_run_cctor(prop->get_method, ex, nullptr);
+    if (ret.is_err())
+    {
+        std::cerr << "Failed to get exception stack trace" << std::endl;
+        std::exit(-1);
+    }
+
+    std::cerr << std::endl;
+    std::cerr << std::endl;
+
+    utils::StringBuilder sb;
+
+    metadata::MetadataName::append_klass_full_name(sb, ex->klass).unwrap();
+    sb.append_cstr(": ");
+    sb.sure_null_terminator_but_not_append();
+    std::cerr << sb.as_cstr();
+
+    sb.clear();
+    vm::RtString* message = ex->message;
+    if (message)
+    {
+        sb.append_utf16_str(&message->first_char, message->length);
+    }
+    else
+    {
+        sb.sure_null_terminator_but_not_append();
+    }
+    std::cerr << sb.as_cstr() << std::endl << std::endl;
+
+    sb.clear();
+    vm::RtString* stack_trace_str = reinterpret_cast<vm::RtString*>(ret.unwrap());
+    sb.append_utf16_str(&stack_trace_str->first_char, stack_trace_str->length);
+    std::cerr << sb.as_cstr() << std::endl << std::endl;
+
+    std::exit(-1);
+}
+
+static void print_error_and_exit(const std::string& message)
+{
+    std::cerr << "Error: " << message << std::endl;
+    std::exit(-1);
+}
+
 static RtResult<const metadata::RtMethodInfo*> find_entry_method(metadata::RtModuleDef* mod, const std::string& entry_spec)
 {
     // Parse entry spec: "FullClassName::MethodName"
@@ -130,8 +186,7 @@ static int run(const std::string& dll_name, const std::vector<std::string>& dll_
     auto ass_result = vm::Assembly::load_by_name(dll_name.c_str());
     if (ass_result.is_err())
     {
-        std::cerr << "Failed to load assembly: " << dll_name << ", error: " << static_cast<int>(ass_result.unwrap_err()) << std::endl;
-        return -1;
+        print_error_and_exit("Failed to load assembly", ass_result.unwrap_err());
     }
     metadata::RtModuleDef* mod = ass_result.unwrap()->mod;
 
@@ -143,8 +198,7 @@ static int run(const std::string& dll_name, const std::vector<std::string>& dll_
         auto method_result = find_entry_method(mod, *entry_spec);
         if (method_result.is_err())
         {
-            std::cerr << "Failed to find entry method" << std::endl;
-            return -1;
+            print_error_and_exit("Failed to find entry method", method_result.unwrap_err());
         }
         entry_method = method_result.unwrap();
     }
@@ -154,16 +208,14 @@ static int run(const std::string& dll_name, const std::vector<std::string>& dll_
         uint32_t entry_token = mod->get_entrypoint_token();
         if (entry_token == 0)
         {
-            std::cerr << "No entry point found in assembly" << std::endl;
-            return -1;
+            print_error_and_exit("No entry point found in assembly");
         }
 
         uint32_t entry_rid = metadata::RtToken::decode_rid(entry_token);
         auto method_result = mod->get_method_by_rid(entry_rid);
         if (method_result.is_err())
         {
-            std::cerr << "Failed to get entry method" << std::endl;
-            return -1;
+            print_error_and_exit("Failed to get entry method", method_result.unwrap_err());
         }
         entry_method = method_result.unwrap();
     }
@@ -171,20 +223,17 @@ static int run(const std::string& dll_name, const std::vector<std::string>& dll_
     // Verify entry method is static
     if (!vm::Method::is_static(entry_method))
     {
-        std::cerr << "Entry method must be static" << std::endl;
-        return -1;
+        print_error_and_exit("Entry method must be static");
     }
 
     if (vm::Method::get_param_count_include_this(entry_method) != 0)
     {
-        std::cerr << "Entry method must have no parameters" << std::endl;
-        return -1;
+        print_error_and_exit("Entry method must have no parameters");
     }
 
     if (vm::Method::contains_not_instantiated_generic_param(entry_method))
     {
-        std::cerr << "Entry method must not be generic" << std::endl;
-        return -1;
+        print_error_and_exit("Entry method must not be generic");
     }
 
     // Invoke entry method
@@ -192,50 +241,7 @@ static int run(const std::string& dll_name, const std::vector<std::string>& dll_
     if (invoke_result.is_err())
     {
         std::cerr << "Failed to invoke entry method, error: " << static_cast<int>(invoke_result.unwrap_err()) << std::endl;
-        vm::RtException* ex = vm::Exception::raise_error_as_exception(invoke_result.unwrap_err(), nullptr, nullptr);
-        if (!ex)
-        {
-            std::cerr << "Failed to raise exception for invocation error" << std::endl;
-            return -1;
-        }
-
-        const metadata::RtPropertyInfo* prop = vm::Class::get_property_for_name(ex->klass, "StackTrace", true);
-        assert(prop);
-        auto ret = vm::Runtime::invoke_with_run_cctor(prop->get_method, ex, nullptr);
-        if (ret.is_err())
-        {
-            std::cerr << "Failed to get exception stack trace" << std::endl;
-            return -1;
-        }
-
-        std::cerr << std::endl;
-        std::cerr << std::endl;
-
-        utils::StringBuilder sb;
-
-        metadata::MetadataName::append_klass_full_name(sb, ex->klass).unwrap();
-        sb.append_cstr(": ");
-        sb.sure_null_terminator_but_not_append();
-        std::cerr << sb.as_cstr();
-
-        sb.clear();
-        vm::RtString* message = ex->message;
-        if (message)
-        {
-            sb.append_utf16_str(&message->first_char, message->length);
-        }
-        else
-        {
-            sb.sure_null_terminator_but_not_append();
-        }
-        std::cerr << sb.as_cstr() << std::endl << std::endl;
-
-        sb.clear();
-        vm::RtString* stack_trace_str = reinterpret_cast<vm::RtString*>(ret.unwrap());
-        sb.append_utf16_str(&stack_trace_str->first_char, stack_trace_str->length);
-        std::cerr << sb.as_cstr() << std::endl << std::endl;
-
-        return -1;
+        print_error_and_exit("Invocation failed", invoke_result.unwrap_err());
     }
 
     return 0;
